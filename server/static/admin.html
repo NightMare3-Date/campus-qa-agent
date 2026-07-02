@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>问题管理后台</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,sans-serif;background:#0f172a;color:#e2e8f0;padding:24px;max-width:900px;margin:0 auto}h1{color:#38bdf8;margin-bottom:8px}.sub{color:#64748b;font-size:13px;margin-bottom:24px}.row{background:#1e293b;border:1px solid #334155;border-radius:8px;padding:16px;margin-bottom:12px}.row .q{font-weight:600;margin-bottom:6px}.row .a{color:#94a3b8;font-size:13px;margin-bottom:6px}.row .meta{font-size:11px;color:#64748b;margin-bottom:10px}.row textarea{width:100%;background:#0f172a;border:1px solid #475569;border-radius:4px;color:#e2e8f0;padding:8px;font-size:13px;resize:vertical;min-height:40px}.row button{background:#22c55e;color:#fff;border:none;border-radius:4px;padding:6px 16px;cursor:pointer;font-size:13px;margin-top:8px}.row button:hover{background:#16a34a}.empty{text-align:center;color:#64748b;padding:60px}#count{color:#f59e0b;font-weight:600}
-/* �ƶ������� */
+/* �ƶ������� */
 @media (max-width: 768px) {
   body {
     padding: 16px;
@@ -20,7 +20,7 @@
     font-size: 12px;
   }
   .row textarea {
-    font-size: 16px;  /* ��ֹ iOS �Զ����� */
+    font-size: 16px;  /* ��ֹ iOS �Զ����� */
   }
   .row button {
     width: 100%;
@@ -29,7 +29,7 @@
   }
 }
 
-/* С���ֻ� */
+/* С���ֻ� */
 @media (max-width: 480px) {
   body {
     padding: 12px;
@@ -40,4 +40,4 @@
   .row {
     padding: 10px;
   }
-}</style></head><body><h1>问题管理后台</h1><p class="sub">待补充问题：<span id="count">0</span> �?| 这些是Agent答不上来的问题，补充答案后用户就能查到了</p><div id="list"></div><script>async function load(){ try{const r=await fetch("/api/admin/pending");const d=await r.json();  document.getElementById("count").textContent=d.questions.length;  const list=document.getElementById("list");  if(!d.questions.length){list.innerHTML="<div class=empty>没有待处理问�?/div>";return}  list.innerHTML=d.questions.map(q=>    "<div class=row>"    +"<div class=q>"+q.question+"</div>"    +"<div class=a>"+(q.agent_answer||"(无答�?")+"</div>"    +"<div class=meta>"+q.reason+" | "+q.created_at+"</div>"    +"<textarea id=t"+q.id+" placeholder=补充正确答案...></textarea>"    +"<button onclick=answer("+q.id+")>标记已补�?/button>"    +"</div>"  ).join("")} catch(e){document.getElementById("list").innerHTML="<div class=empty>加载失败</div>"}}async function answer(id){ const t=document.getElementById("t"+id); await fetch("/api/admin/mark?id="+id+"&supplemented="+encodeURIComponent(t.value)); load();}window.onload=load;</script></body></html>
+}</style></head><body><h1>问题管理后台</h1><p class="sub">待补充问题：<span id="count">0</span> �?| 这些是Agent答不上来的问题，补充答案后用户就能查到了</p><div id="list"></div><script>async function load(){ try{const r=await fetch("/api/admin/pending");const d=await r.json();  document.getElementById("count").textContent=d.questions.length;  const list=document.getElementById("list");  if(!d.questions.length){list.innerHTML="<div class=empty>没有待处理问�?/div>";return}  list.innerHTML=d.questions.map(q=>    "<div class=row>"    +"<div class=q>"+q.question+"</div>"    +"<div class=a>"+(q.agent_answer||"(无答�?")+"</div>"    +"<div class=meta>"+q.reason+" | "+q.created_at+"</div>"    +"<textarea id=t"+q.id+" placeholder=补充正确答案...></textarea>"    +"<button onclick=answer("+q.id+")>标记已补�?/button>"    +"</div>"  ).join("")} catch(e){document.getElementById("list").innerHTML="<div class=empty>加载失败</div>"}}async function answer(id){ const t=document.getElementById("t"+id); await fetch("/api/admin/mark?id="+id+"&supplemented="+encodeURIComponent(t.value)); load();}window.onload=load;</script></body></html>

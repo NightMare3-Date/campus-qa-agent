@@ -135,9 +135,6 @@ docker compose up -d
 
 ---
 
-
----
-
 ## Docker 部署
 
 ### 前提条件
