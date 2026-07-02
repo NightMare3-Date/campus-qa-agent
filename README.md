@@ -8,6 +8,7 @@
 
 - [项目简介](#项目简介)
 - [功能特性](#功能特性)
+- [Docker 部署](#Docker-部署)
 - [技术栈](#技术栈)
 - [快速开始](#快速开始)
 - [详细配置说明](#详细配置说明)
@@ -118,17 +119,55 @@ SERVER_PORT=8000
 ### 6. 启动服务
 
 ```bash
+# 方式一：直接启动（开发调试用）
 # Windows
 start.bat
 
 # Linux / Mac
 # chmod +x start.sh
 # ./start.sh
+
+# 方式二：Docker 启动（生产部署用）
+docker compose up -d
 ```
 
 浏览器打开 http://localhost:8000
 
 ---
+
+
+---
+
+## Docker 部署
+
+### 前提条件
+
+- 安装 Docker Engine 20.10+ 和 Docker Compose v2+
+- 确保 `.env` 文件已配置好 API Key
+
+### 构建并启动
+
+```bash
+# 首次构建并后台启动
+docker compose up -d
+
+# 查看实时日志
+docker compose logs -f
+
+# 停止服务
+docker compose down
+```
+
+### 数据持久化
+
+- **知识文档**：宿主机的 `./knowledge/` 目录挂载到容器内 `/app/knowledge`
+- **向量索引**：通过 Docker 命名卷 `chroma_data` 持久化在 `/app/chroma_db`
+- **环境配置**：自动加载宿主机的 `.env` 文件
+
+### healthcheck
+
+服务每 30 秒自动健康检查，如果异常会自动重启容器。
+
 
 ## 详细配置说明
 

@@ -1,9 +1,9 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>æ ¡å›­çŸ¥è¯†é—®ç­” Agent</title>
+<title>Ğ£Ô°ÖªÊ¶ÎÊ´ğ Agent</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#0f172a;color:#e2e8f0;height:100vh;display:flex;flex-direction:column}
@@ -34,7 +34,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .tool-run{border-left:3px solid #38bdf8;padding:8px 12px;margin:4px 0;background:#0f172a;border-radius:4px;font-size:12px;color:#94a3b8;animation:fadeIn .3s}
 .tool-done{border-left:3px solid #22c55e;padding:8px 12px;margin:4px 0;background:#0f172a;border-radius:4px;font-size:12px;color:#94a3b8;animation:fadeIn .3s}
 
-/* marked æ¸²æŸ“æ ·å¼ */
+/* marked äÖÈ¾ÑùÊ½ */
 .msg.agent .bbl table{border-collapse:collapse;width:100%;margin:8px 0;font-size:13px}
 .msg.agent .bbl th,.msg.agent .bbl td{border:1px solid #475569;padding:6px 10px;text-align:left}
 .msg.agent .bbl th{background:#334155;color:#38bdf8;font-weight:600}
@@ -47,27 +47,83 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .msg.agent .bbl li{margin:2px 0}
 .msg.agent .bbl strong{color:#fbbf24}
 .msg.agent .bbl a{color:#38bdf8;text-decoration:underline}
-</style>
+
+/* ÒÆ¶¯¶ËÊÊÅä */
+@media (max-width: 768px) {
+  .chat {
+    padding: 12px;
+    gap: 12px;
+  }
+  .msg {
+    max-width: 90%;
+  }
+  .bbl {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+  .input-area {
+    padding: 10px 12px;
+  }
+  .input-area input {
+    font-size: 16px;  /* ·ÀÖ¹ iOS ×Ô¶¯Ëõ·Å */
+  }
+  .header h1 {
+    font-size: 15px;
+  }
+  .badge {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+  .welcome h2 {
+    font-size: 18px;
+  }
+  .welcome p {
+    font-size: 13px;
+  }
+  .tool-run, .tool-done {
+    font-size: 11px;
+    padding: 6px 8px;
+  }
+}
+
+/* Ğ¡ÆÁÊÖ»ú */
+@media (max-width: 480px) {
+  .msg {
+    max-width: 95%;
+  }
+  .av {
+    width: 26px;
+    height: 26px;
+    font-size: 13px;
+  }
+  .header {
+    padding: 8px 12px;
+  }
+  .input-area button {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+}</style>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
 <div class="header">
-  <h1>ğŸ¨ æ ¡å›­çŸ¥è¯†é—®ç­” Agent</h1>
+  <h1>?? Ğ£Ô°ÖªÊ¶ÎÊ´ğ Agent</h1>
   <div>
-    <a href="/admin" target="_blank">ç®¡ç†åå°</a>
+    <a href="/admin" target="_blank">¹ÜÀíºóÌ¨</a>
     <span class="badge" id="pendingBadge"></span>
-    <span class="badge" id="toolsBadge">åŠ è½½ä¸­...</span>
+    <span class="badge" id="toolsBadge">¼ÓÔØÖĞ...</span>
   </div>
 </div>
 <div class="chat" id="chatContainer">
   <div class="welcome">
-    <h2>ğŸ’¡ ä½ å¥½ï¼é—®æˆ‘å…³äºå­¦æ ¡çš„é—®é¢˜</h2>
-    <p>ä¾‹å¦‚ï¼šè®¡ç®—æœºå­¦é™¢åœ¨å“ªæ ‹æ¥¼ï¼Ÿå®¿èˆæœ‰ç©ºè°ƒå—ï¼Ÿé£Ÿå ‚å‡ ç‚¹å¼€é—¨ï¼Ÿ</p>
+    <h2>?? ÄãºÃ£¡ÎÊÎÒ¹ØÓÚÑ§Ğ£µÄÎÊÌâ</h2>
+    <p>ÀıÈç£º¼ÆËã»úÑ§ÔºÔÚÄÄ¶°Â¥£¿ËŞÉáÓĞ¿Õµ÷Âğ£¿Ê³ÌÃ¼¸µã¿ªÃÅ£¿</p>
   </div>
 </div>
 <div class="input-area">
-  <input id="input" placeholder="è¾“å…¥ä½ çš„é—®é¢˜..." />
-  <button id="sendBtn">å‘é€</button>
+  <input id="input" placeholder="ÊäÈëÄãµÄÎÊÌâ..." />
+  <button id="sendBtn">·¢ËÍ</button>
 </div>
 
 <script>
@@ -80,7 +136,7 @@ async function loadTools() {
   try {
     var r = await fetch("/api/tools");
     var d = await r.json();
-    document.getElementById("toolsBadge").textContent = "ğŸ”§ " + d.tools.map(function(t){return t.name}).join(", ");
+    document.getElementById("toolsBadge").textContent = "?? " + d.tools.map(function(t){return t.name}).join(", ");
   } catch(e) {}
 }
 
@@ -91,7 +147,7 @@ async function loadPendingCount() {
     if (d.count > 0) {
       var b = document.getElementById("pendingBadge");
       b.style.display = "inline";
-      b.textContent = "å¾…è¡¥å…… " + d.count;
+      b.textContent = "´ı²¹³ä " + d.count;
     }
   } catch(e) {}
 }
@@ -108,20 +164,20 @@ function addMsg(role, content) {
   if (w) w.remove();
   var div = document.createElement("div");
   div.className = "msg " + role;
-  var avatar = role === "user" ? "ğŸ‘¤" : "ğŸ¤–";
+  var avatar = role === "user" ? "??" : "??";
   var avClass = role === "user" ? "u" : "a";
   var rendered = role === 'agent' && typeof marked !== 'undefined' ? marked.parse(content) : content;
   div.innerHTML = '<div class="av ' + avClass + '">' + avatar + '</div><div class="bbl">' + rendered + '</div>';
   if (role === "agent") {
     var fbBtn = document.createElement("button");
     fbBtn.className = "fb-btn";
-    fbBtn.textContent = "æ²¡å¸®åˆ°æˆ‘";
+    fbBtn.textContent = "Ã»°ïµ½ÎÒ";
     fbBtn.onclick = function() {
       var userMsgs = document.querySelectorAll(".msg.user .bbl");
       var lastUser = userMsgs[userMsgs.length - 1];
       var question = lastUser ? lastUser.textContent : "";
       fetch("/api/feedback", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({session_id: sid, question: question, answer: currentBuffer})});
-      fbBtn.textContent = "å·²åé¦ˆ";
+      fbBtn.textContent = "ÒÑ·´À¡";
       fbBtn.disabled = true;
     };
     div.appendChild(fbBtn);
@@ -145,7 +201,7 @@ function addToolRun(tool, input) {
   var c = document.getElementById("chatContainer");
   var d = document.createElement("div");
   d.className = "tool-run";
-  d.textContent = "ğŸ” æ­£åœ¨æŸ¥è¯¢: " + tool + (input ? " (" + input + ")" : "");
+  d.textContent = "?? ÕıÔÚ²éÑ¯: " + tool + (input ? " (" + input + ")" : "");
   c.appendChild(d);
   c.scrollTop = c.scrollHeight;
 }
@@ -154,7 +210,7 @@ function addToolDone(output) {
   var c = document.getElementById("chatContainer");
   var d = document.createElement("div");
   d.className = "tool-done";
-  d.textContent = "âœ… æŸ¥è¯¢å®Œæˆ" + (output ? ": " + output.substring(0, 120) : "");
+  d.textContent = "? ²éÑ¯Íê³É" + (output ? ": " + output.substring(0, 120) : "");
   c.appendChild(d);
   c.scrollTop = c.scrollHeight;
 }
@@ -186,7 +242,7 @@ function send() {
         btn.disabled = false;
         inp.focus();
       } else if (d.type === "error") {
-        appendToken("\n[é”™è¯¯: " + d.content + "]");
+        appendToken("\n[´íÎó: " + d.content + "]");
         evtSource.close();
         processing = false;
         btn.disabled = false;
@@ -205,9 +261,9 @@ async function newSession() {
     var r = await fetch("/api/session/new", {method: "POST"});
     var d = await r.json();
     sid = d.session_id;
-    document.getElementById("chatContainer").innerHTML = '<div class="welcome"><h2>æ–°å¯¹è¯å·²å¼€å§‹</h2><p>ä¼šè¯ID: ' + sid + '</p></div>';
+    document.getElementById("chatContainer").innerHTML = '<div class="welcome"><h2>ĞÂ¶Ô»°ÒÑ¿ªÊ¼</h2><p>»á»°ID: ' + sid + '</p></div>';
   } catch(e) {
-    alert("åˆ›å»ºå¤±è´¥");
+    alert("´´½¨Ê§°Ü");
   }
 }
 
