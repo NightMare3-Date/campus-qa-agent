@@ -1,4 +1,4 @@
-"""FastAPI with SSE"""
+﻿"""FastAPI with SSE"""
 import sys, os, json, uuid, re
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from fastapi import FastAPI, HTTPException
@@ -78,7 +78,7 @@ async def list_tools():
 
 @app.get("/")
 async def root():
-    return FileResponse(os.path.join(os.path.dirname(__file__), "static", "index.html"))
+    return FileResponse(os.path.join(os.path.dirname(__file__), "static", "index.html"), media_type="text/html; charset=utf-8")
 
 @app.get("/health")
 async def health():
@@ -111,7 +111,7 @@ async def admin_count():
 
 @app.get("/admin")
 async def admin_page():
-    return FileResponse(os.path.join(os.path.dirname(__file__), "static", "admin.html"))
+    return FileResponse(os.path.join(os.path.dirname(__file__), "static", "admin.html"), media_type="text/html; charset=utf-8")
 
 
 if __name__ == "__main__":

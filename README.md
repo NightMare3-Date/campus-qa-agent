@@ -41,6 +41,7 @@
 | **回答质量检测** | 自动判断 Agent 是否未能回答，记录到反馈数据库 |
 | **管理后台** | Web 界面查看待补充问题，支持手动补充答案 |
 | **Markdown 格式化** | 回答支持加粗、列表、表格、引用等格式 |
+| **点赞/踩反馈** | 用户可对回答点赞或反馈"没帮到我"，支持补充说明 |
 | **知识隔离** | 知识文档不上传到代码仓库，支持环境变量指向外部路径 |
 
 ---
@@ -54,7 +55,7 @@
 | 向量检索 | FAISS（langchain-community） |
 | Embedding 模型 | BAAI/bge-small-zh-v1.5 |
 | 大语言模型 | DeepSeek Chat（兼容 OpenAI API） |
-| 前端 | 原生 HTML + JavaScript + marked.js |
+| 前端 | 原生 HTML + JavaScript + marked.js（Markdown 渲染）|
 | 数据存储 | SQLite |
 | 网络请求 | httpx + BeautifulSoup4 |
 
