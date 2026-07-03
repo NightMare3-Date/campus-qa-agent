@@ -1,12 +1,11 @@
 ﻿"""LangGraph Agent - 校园知识问答（Stream + Checkpoint）"""
-import os, json
+import json
 from typing import Literal
 from langgraph.graph import StateGraph, MessagesState, START, END
 from langgraph.checkpoint.memory import MemorySaver
 from langchain_core.messages import SystemMessage, HumanMessage
-from dotenv import load_dotenv
+from agent.config import settings
 
-load_dotenv(override=True)
 
 # ---------- LLM (懒加载，避免慢导入) ----------
 _llm = None
@@ -15,9 +14,9 @@ def _get_llm():
     if _llm is None:
         from langchain_openai import ChatOpenAI
         _llm = ChatOpenAI(
-            model=os.getenv("OPENAI_MODEL", "deepseek-chat"),
-            api_key=os.getenv("OPENAI_API_KEY"),
-            base_url=os.getenv("OPENAI_BASE_URL", "https://api.deepseek.com/v1"),
+            model=settings.openai_model,
+            api_key=settings.openai_api_key,
+            base_url=settings.openai_base_url,
             temperature=0.3,
             streaming=True,
         )

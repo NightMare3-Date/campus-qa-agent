@@ -1,4 +1,4 @@
-# 🏫 校园知识问答 Agent
+﻿# 🏫 校园知识问答 Agent
 
 基于 LangGraph + RAG 的智能校园问答助手，支持向量检索本地知识库，实时流式回答。
 
@@ -91,7 +91,7 @@ venv\Scripts\activate
 ### 3. 安装依赖
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements-lock.txt
 ```
 
 ### 4. 配置环境变量
@@ -225,7 +225,8 @@ campus-qa-agent/
 │
 ├── .env.example                    # 环境变量模板
 ├── .gitignore                      # Git 忽略规则
-├── requirements.txt                # Python 依赖清单
+├── requirements.in                   # 核心依赖（不锁版本，供参考）
+├── requirements-lock.txt             # 锁定版本（精确依赖）
 ├── start.bat                       # Windows 启动脚本
 ├── start.sh                        # Linux 启动脚本
 └── README.md                       # 本文件

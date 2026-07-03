@@ -9,10 +9,10 @@
       # 知识文档持久化（挂载外部目录）
       - ./knowledge:/app/knowledge
       # 向量索引持久化
-      - chroma_data:/app/chroma_db
+      - faiss_data:/app/data/faiss_index
     environment:
       - HF_HUB_OFFLINE=0
-      - CHROMA_DB_DIR=/app/chroma_db
+      - VECTOR_DB_DIR=/app/data/faiss_index
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
@@ -21,4 +21,4 @@
       retries: 3
 
 volumes:
-  chroma_data:
+  faiss_data:
